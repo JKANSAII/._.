@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JKansai Page</title>
+<style>
+  /* Loader styles */
+  #loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    flex-direction: column;
+    color: white;
+    font-family: Arial, sans-serif;
+    opacity: 1;
+    transition: opacity 0.8s ease;
+  }
+
+  #loader img {
+    width: 140px;
+    height: 140px;
+  }
+
+  #loader span {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    opacity: 0.7;
+    letter-spacing: 1px;
+  }
+
+  #main-content { display: none; }
+
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 40px 20px;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    background: #000;
+    color: #fff;
+  }
+
+  h1 { font-family: "Times New Roman", serif; font-size: 3rem; font-weight: bold; margin-bottom: 15px; opacity: 0; animation: fadeInDown 1s ease forwards; }
+  h2 { font-size: 1.3rem; font-weight: normal; margin-bottom: 40px; color: #ddd; opacity: 0; animation: fadeInDown 1.2s ease forwards; animation-delay: 0.3s; }
+
+  .fl-logo-main {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 25px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 0 20px rgba(255,255,255,0.4);
+  }
+
+  .button-container { display: flex; flex-direction: column; gap: 20px; align-items: center; max-width: 400px; width: 100%; }
+
+  .btn {
+    display: flex; align-items: center; gap: 12px; text-decoration: none; color: white;
+    padding: 18px 30px; font-size: 1.3rem; font-weight: bold; border-radius: 14px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15); transition: transform 0.2s, box-shadow 0.2s;
+    width: 100%; justify-content: center; opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s ease forwards;
+  }
+
+  .btn img { width: 28px; height: 28px; }
+  .btn:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.2); }
+
+  .soundcloud { background: #ff5500; animation-delay: 0.6s; }
+  .outlook { background: #0072c6; animation-delay: 0.8s; }
+  .tiktok { background: #010101; animation-delay: 1s; }
+  .instagram { background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af, #515bd4); animation-delay: 1.2s; }
+
+  @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 600px) {
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 1.1rem; }
+    .btn { font-size: 1.2rem; padding: 16px 25px; }
+    .btn img { width: 24px; height: 24px; }
+    .fl-logo-main { width: 90px; height: 90px; margin-bottom: 20px; }
+    #loader img { width: 100px; height: 100px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Loader -->
+<div id="loader">
+  <img src="https://i.ibb.co/nNjghXd8/ezgif-332887d570005a.gif" alt="FL Studio GIF">
+  <span>Loading...</span>
+  <audio id="startup-sound" src="https://freesound.org/data/previews/342/342756_586551-lq.mp3"></audio>
+</div>
+
+<!-- Main Content -->
+<div id="main-content">
+  <!-- FL Studio GIF above the title -->
+  <img class="fl-logo-main" src="https://i.ibb.co/nNjghXd8/ezgif-332887d570005a.gif" alt="FL Studio GIF">
+  <h1>Welcome</h1>
+  <h2>Welcome to the JKansai page. Redirects are below</h2>
+  <div class="button-container">
+    <a class="btn soundcloud" href="https://soundcloud.com/jkansai" target="_blank">
+      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/soundcloud.svg" alt="SoundCloud Logo"> SoundCloud
+    </a>
+    <a class="btn outlook" href="mailto:p1nk0mega@outlook.com">
+      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/microsoftoutlook.svg" alt="Outlook Logo"> Email (Inquiries)
+    </a>
+    <a class="btn tiktok" href="https://www.tiktok.com/@jkansaii?_t=ZN-8zSPfsJhUFa&_r=1" target="_blank">
+      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/tiktok.svg" alt="TikTok Logo"> TikTok
+    </a>
+    <a class="btn instagram" href="https://www.instagram.com/j2kansai?igsh=dmF3ejRkZm53MHR4" target="_blank">
+      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg" alt="Instagram Logo"> Instagram
+    </a>
+  </div>
+</div>
+
+<script>
+  window.addEventListener('load', () => {
+    const sound = document.getElementById('startup-sound');
+    sound.play().catch(() => {});
+    setTimeout(() => {
+      const loader = document.getElementById('loader');
+      loader.style.opacity = '0';
+      setTimeout(() => {
+        loader.style.display = 'none';
+        document.getElementById('main-content').style.display = 'block';
+      }, 800);
+    }, 2000);
+  });
+</script>
+
+</body>
+</html>
