@@ -156,6 +156,165 @@
   .btn img { width: 28px; height: 28px; }
   .btn:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.2); }
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JKansai Page</title>
+<style>
+  /* Loader styles */
+  #loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    flex-direction: column;
+    color: white;
+    font-family: Arial, sans-serif;
+    transition: opacity 0.8s ease;
+  }
+
+  #apple-logo {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 25px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Apple logo glow */
+  #apple-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 140px;
+    height: 140px;
+    background: radial-gradient(circle, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 60%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    filter: blur(15px);
+    opacity: 0;
+    pointer-events: none; /* lets clicks pass through */
+    transition: opacity 0.3s ease;
+    z-index: 1;
+  }
+
+  .loader-active #apple-glow {
+    opacity: 1;
+    animation: glowPulse 1.5s infinite;
+  }
+
+  @keyframes glowPulse {
+    0% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+    50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+  }
+
+  /* Power button overlay */
+  #power-button {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: pulse 1.5s infinite;
+    z-index: 2;
+  }
+
+  #power-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px white, 0 0 50px rgba(255,255,255,0.4);
+  }
+
+  @keyframes pulse {
+    0% { box-shadow: 0 0 5px white; }
+    50% { box-shadow: 0 0 20px white; }
+    100% { box-shadow: 0 0 5px white; }
+  }
+
+  .loader-bar-container {
+    width: 200px;
+    height: 8px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 20px;
+    position: relative;
+    display: none; /* hidden until clicked */
+  }
+
+  .loader-bar {
+    width: 0%;
+    height: 100%;
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 0 8px rgba(255,255,255,0.5);
+    animation: loadingStutter 3s cubic-bezier(0.4,0,0.2,1) forwards;
+  }
+
+  @keyframes loadingStutter {
+    0% { width: 0%; }
+    45% { width: 45%; }
+    50% { width: 40%; }
+    55% { width: 50%; }
+    100% { width: 100%; }
+  }
+
+  #main-content { display: none; }
+
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 40px 20px;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    background: #000;
+    color: #fff;
+  }
+
+  h1 { font-family: "Times New Roman", serif; font-size: 3rem; font-weight: bold; margin-bottom: 15px; opacity: 0; animation: fadeInDown 1s ease forwards; }
+  h2 { font-size: 1.3rem; font-weight: normal; margin-bottom: 20px; color: #ddd; opacity: 0; animation: fadeInDown 1.2s ease forwards; animation-delay: 0.3s; }
+
+  .logo-main {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 25px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 0 20px rgba(255,255,255,0.4);
+  }
+
+  .button-container { display: flex; flex-direction: column; gap: 20px; align-items: center; max-width: 400px; width: 100%; }
+
+  .btn {
+    display: flex; align-items: center; gap: 12px; text-decoration: none; color: white;
+    padding: 18px 30px; font-size: 1.3rem; font-weight: bold; border-radius: 14px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15); transition: transform 0.2s, box-shadow 0.2s;
+    width: 100%; justify-content: center; opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s ease forwards;
+  }
+
+  .btn img { width: 28px; height: 28px; }
+  .btn:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.2); }
+
   .soundcloud { background: #ff5500; animation-delay: 0.6s; }
   .outlook { background: #0072c6; animation-delay: 0.8s; }
   .tiktok { background: #010101; animation-delay: 1s; }
@@ -169,6 +328,53 @@
     h2 { font-size: 1.1rem; }
     .btn { font-size: 1.2rem; padding: 16px 25px; }
     .btn img { width: 24px; height: 24px; }
+    .logo-main { width: 90px; height: 90px; margin-bottom: 20px; }
+    #loader img { width: 100px; height: 100px; }
+    .loader-bar-container { width: 150px; height: 6px; }
+    #power-button { width: 60px; height: 60px; font-size: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Loader -->
+<div id="loader">
+  <div id="apple-glow"></div>
+  <img src="https://pngimg.com/d/apple_logo_PNG19677.png" alt="Apple Logo" id="apple-logo">
+  
+  <!-- Power Button -->
+  <div id="power-button">&#x23FB;</div> <!-- Unicode power symbol -->
+
+  <div class="loader-bar-container">
+    <div class="loader-bar"></div>
+  </div>
+
+  <!-- macOS Big Sur startup sound -->
+  <audio id="startup-sound" src="https://www.myinstants.com/media/sounds/mac-os-big-sur-startup.mp3"></audio>
+</div>
+
+<!-- Main Content -->
+<div id="main-content">
+  <img class="logo-main" src="https://i.ibb.co/nNjghXd8/ezgif-332887d570005a.gif" alt="FL Studio GIF">
+  <h1>Welcome</h1>
+  <h2>Welcome to the JKansai page. Redirects are below</h2>
+
+  <!-- Hidden SoundCloud Player for HBK by Devon Hendryx -->
+  <iframe style="display:none;" 
+    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/146768741&auto_play=true&visual=false">
+  </iframe>
+
+  <div class="button-container">
+    <a class="btn soundcloud" href="https://soundcloud.com/jkansai" target="_blank">
+      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/soundcloud.svg" alt="SoundCloud Logo"> SoundCloud
+    </a>
+    <a class="btn outlook" href="mailto:p1nk0mega@outlook.com">
+      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/microsoftoutlook.svg" alt="Outlook Logo"> Email (Inquiries)
+    </a>
+    <a class="btn tiktok" href="https://www.tiktok.com/@jkansaii?_t=ZN-8zSPfsJhUFa&_r=1" target="_blank">
+      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/tiktok.svg" alt="TikTok Logo"> TikTok
+    </a>
+    <aight: 24px; }
     .logo-main { width: 90px; height: 90px; margin-bottom: 20px; }
     #loader img { width: 100px; height: 100px; }
     .loader-bar-container { width: 150px; height: 6px; }
